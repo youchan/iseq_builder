@@ -18,8 +18,8 @@ module ISeqBuilder
     end
 
     def call_info(symbol, flags, orig_arg)
-      mid = @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
-      @call_info << call_info = CallInfo.new(1, flags, orig_arg, @call_info.size)
+      @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
+      @call_info << call_info = CallInfo.new(ID_STATIC_SYM, flags, orig_arg, @call_info.size)
       call_info
     end
 
