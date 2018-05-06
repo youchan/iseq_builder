@@ -1,0 +1,38 @@
+module ISeqBuilder
+  # traditional set_trace_func events
+  RUBY_EVENT_NONE      = 0x0000
+  RUBY_EVENT_LINE      = 0x0001
+  RUBY_EVENT_CLASS     = 0x0002
+  RUBY_EVENT_END       = 0x0004
+  RUBY_EVENT_CALL      = 0x0008
+  RUBY_EVENT_RETURN    = 0x0010
+  RUBY_EVENT_C_CALL    = 0x0020
+  RUBY_EVENT_C_RETURN  = 0x0040
+  RUBY_EVENT_RAISE     = 0x0080
+  RUBY_EVENT_ALL       = 0x00ff
+
+  # for TracePoint extended events
+  RUBY_EVENT_B_CALL            = 0x0100
+  RUBY_EVENT_B_RETURN          = 0x0200
+  RUBY_EVENT_THREAD_BEGIN      = 0x0400
+  RUBY_EVENT_THREAD_END        = 0x0800
+  RUBY_EVENT_FIBER_SWITCH      = 0x1000
+  RUBY_EVENT_TRACEPOINT_ALL    = 0xffff
+
+  # special events
+  RUBY_EVENT_RESERVED_FOR_INTERNAL_USE = 0x030000
+
+  # internal events
+  RUBY_INTERNAL_EVENT_SWITCH          = 0x040000
+  RUBY_EVENT_SWITCH                   = 0x040000 # obsolete name. this macro is for compatibility
+                                      # 0x080000
+  RUBY_INTERNAL_EVENT_NEWOBJ          = 0x100000
+  RUBY_INTERNAL_EVENT_FREEOBJ         = 0x200000
+  RUBY_INTERNAL_EVENT_GC_START        = 0x400000
+  RUBY_INTERNAL_EVENT_GC_END_MARK     = 0x800000
+  RUBY_INTERNAL_EVENT_GC_END_SWEEP   = 0x1000000
+  RUBY_INTERNAL_EVENT_GC_ENTER       = 0x2000000
+  RUBY_INTERNAL_EVENT_GC_EXIT        = 0x4000000
+  RUBY_INTERNAL_EVENT_OBJSPACE_MASK  = 0x7f00000
+  RUBY_INTERNAL_EVENT_MASK          = 0xffff0000
+end

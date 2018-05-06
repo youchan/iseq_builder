@@ -1,11 +1,11 @@
 module ISeqBuilder
   class ISeqObject
-    attr_reader :type, :id, :special_const, :frozen, :internal
+    attr_reader :type, :value, :id, :special_const, :frozen, :internal
 
-    def initialize(type, id, special_const, frozen, internal, object = nil)
+    def initialize(type, id, special_const, frozen, internal, value = nil)
       @type = type
       @id = id
-      @object = object
+      @value = value
 
       @header = type_num
       @header |= 0b00100000 if special_const
@@ -17,7 +17,7 @@ module ISeqBuilder
     def body
       case @type
       when T_STRING
-        [2, @object.size, @object]
+        [2, @value.size, @value]
       when T_NIL
         [8]
       end
@@ -41,8 +41,8 @@ module ISeqBuilder
     end
 
     def to_s
-      if @object
-        @object.inspect
+      if @value
+        @value.inspect
       elsif @type == T_NIL
         "nil"
       else

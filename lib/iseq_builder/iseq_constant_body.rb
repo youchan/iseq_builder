@@ -22,16 +22,16 @@ module ISeqBuilder
   ]
 
   class ISeqConstantBody
-    def initialize(type, offset, insns, call_info)
+    def initialize(sequence, type, offset)
       @type = type
-      @iseq_size = insns.sum(&:size)
+      @iseq_size = sequence.insns.sum(&:size)
       @iseq_encoded = offset
       @params = Array.new(12, 0)
       @location = Location.new
       @insns_info_offset = @iseq_encoded + @iseq_size * 8
-      @insns_info_size = 0
-      @local_table_size = 0
-      @local_table_offset = @insns_info_offset + @insns_info_size * 4
+      @insns_info_size = sequence.insns_info.size
+      @local_table_size = sequence.local_table.size
+      @local_table_offset = @insns_info_offset + @insns_info_size * 12
       @catch_table = 0
       @parent_iseq = -1
       @local_iseq = 0
@@ -40,7 +40,7 @@ module ISeqBuilder
       @cc_entries = 0
       @mark_ary = 0
       @is_size = 0
-      @ci_size = call_info.size
+      @ci_size = sequence.call_info.size
       @ci_kw_size = 0
       @stack_max = 2
     end

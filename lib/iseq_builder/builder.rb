@@ -1,6 +1,6 @@
 module ISeqBuilder
   class Builder
-    attr_reader :sequences
+    attr_reader :sequences, :id_list, :objects
 
     def initialize(objpath = "", label = "<compiled>")
       @sequences = []
@@ -35,11 +35,7 @@ module ISeqBuilder
     def identifiable_object(type, special_const, frozen, internal, value = nil)
       object = self.object(type, special_const, frozen, internal, value)
       @id_list << object.id
-      object.id
-    end
-
-    def insn(opcode, *operand)
-      Insn.new(opcode, *operand)
+      @id_list.length - 1
     end
 
     def to_bin
