@@ -49,6 +49,14 @@ module ISeqBuilder
       end
     end
 
+    def method_missing(name, *args)
+      if INSN_TYPE.include?(name)
+        @insns << insn(name, *args)
+      else
+        super
+      end
+    end
+
     def to_bin
       bin = ""
       @insns.each do |insn|

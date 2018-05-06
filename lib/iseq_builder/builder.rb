@@ -13,7 +13,13 @@ module ISeqBuilder
     end
 
     def top_level(&block)
-      block.call sequences.first
+      top_level = sequences.first
+
+      if block
+        top_level.instance_eval &block
+      end
+
+      top_level
     end
 
     def new_sequence(type)
