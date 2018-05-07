@@ -27,23 +27,40 @@ module ISeqBuilder
       @builder.object(T_STRING, false, true, false, str)
     end
 
-    def callinfo(symbol, mid, orig_arg, flags)
-      @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
+    def integer(i)
+      @builder.object(T_UNDEF, true, true, true, i * 2 + 1)
+    end
+
+    def callinfo(symbol, orig_arg, flags)
+      mid = @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
       @call_info << call_info = CallInfo.new(mid, flags, orig_arg, @call_info.size)
       call_info
     end
 
     def local(symbol)
-      idx = find_local(symbol)
-      return idx if idx
+      local_idx = find_local_index(symbol)
+      return local_idx + 1 if local_idx
       idx = @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
       @local_table << idx
-      idx
+      @local_table.length
     end
 
-    def find_local(symbol)
-      @local_table.find do |idx|
+    def constant(symbol)
+      idx = find_id_index(symbol)
+      return idx if idx
+      @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
+    end
+
+    def find_local_index(symbol)
+      @local_table.find_index do |idx|
         id = @builder.id_list[idx]
+        object = @builder.objects[id]
+        object.type == T_STRING && object.value == symbol.to_s
+      end
+    end
+
+    def find_id_index(symbol)
+      @builder.id_list.find_index do |id|
         object = @builder.objects[id]
         object.type == T_STRING && object.value == symbol.to_s
       end

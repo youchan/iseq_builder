@@ -40,8 +40,9 @@ module ISeqBuilder
 
     def identifiable_object(type, special_const, frozen, internal, value = nil)
       object = self.object(type, special_const, frozen, internal, value)
+      idx = @id_list.length
       @id_list << object.id
-      @id_list.length - 1
+      idx
     end
 
     def to_bin

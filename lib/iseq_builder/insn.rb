@@ -21,6 +21,8 @@ module ISeqBuilder
       case opcode
       when :setlocal_OP__WC__0, :getlocal_OP__WC__0
         operand[0] = @sequence.local_table.size - operand[0] + VM_ENV_DATA_SIZE
+      when :opt_send_without_block
+        operand[0] = 0
       end
       operand.map!(&self.method(:operand_to_i))
       operand

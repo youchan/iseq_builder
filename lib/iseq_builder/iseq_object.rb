@@ -20,6 +20,8 @@ module ISeqBuilder
         [2, @value.size, @value]
       when T_NIL
         [8]
+      when T_UNDEF
+        [@value]
       end
     end
 
@@ -28,6 +30,8 @@ module ISeqBuilder
       when T_STRING
         "Q2a*"
       when T_NIL
+        "Q"
+      when T_UNDEF
         "Q"
       end
     end
