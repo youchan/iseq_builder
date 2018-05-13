@@ -1,6 +1,6 @@
-# iSeq Builder
+# ISeq Builder
 
-Building iSeq programmably.
+Building ISeq programmably.
 
 ## Installation
 
@@ -20,11 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-See examples.
+There is brainfxck compiler example in `examples` directory.
+
+    $ cd examples
+    $ bundle
+
+compiling brainfxck source code to ISeq binary
+
+    $ bundle exec ruby brainfxck.rb -c -o helloworld.bin bf/helloworld.bf
+
+executing ISeq binary
+
+    $ bundle exec ruby brainfxck.rb -e helloworld.bin
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/iseq_builder.
+Bug reports and pull requests are welcome on GitHub at https://github.com/youchan/iseq_builder.
 
 ## License
 

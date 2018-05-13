@@ -1,6 +1,6 @@
 module ISeqBuilder
   class Sequence
-    attr_reader :insns, :insns_info, :local_table, :call_info
+    attr_reader :insns, :insns_info, :local_table, :call_info, :label_table
 
     def initialize(builder, type = ISeqBuilder::ISEQ_TYPE_TOP)
       @builder = builder
@@ -9,6 +9,7 @@ module ISeqBuilder
       @insns = []
       @insns_info = []
       @call_info = []
+      @label_table = {}
     end
 
     def <<(insn)
@@ -23,6 +24,14 @@ module ISeqBuilder
       @insns_info << InsnsInfo.new(@insns.length, lineno, event)
     end
 
+    def pc
+      @insns.sum(&:size)
+    end
+
+    def label(label)
+      @label_table[label] = pc
+    end
+
     def string(str)
       @builder.object(T_STRING, false, true, false, str)
     end
@@ -32,7 +41,8 @@ module ISeqBuilder
     end
 
     def callinfo(symbol, orig_arg, flags)
-      mid = @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s)
+      mid = find_id_index(symbol)
+      mid = @builder.identifiable_object(T_STRING, false, true, false, symbol.to_s) unless mid
       @call_info << call_info = CallInfo.new(mid, flags, orig_arg, @call_info.size)
       call_info
     end
