@@ -1,10 +1,10 @@
 #############################
-# brainfxck.rb
+# brainf*ck.rb
 #
-# A brainfxck compiler compiling to ISeq
+# A brainf*ck compiler compiling to ISeq
 #
 # Usage.
-#   compiling brainfxck source code to ISeq binary
+#   compiling brainf*ck source code to ISeq binary
 #   $ bundle exec ruby brainfxck.rb -c -o helloworld.bin bf/helloworld.bf
 #
 #   executing ISeq binary
