@@ -27,7 +27,7 @@ module ISeqBuilder
       seq
     end
 
-    def add_sequence(&block)
+    def add_sequence(type, &block)
       block.call(seq = Sequence.new(type))
       @sequences << seq
       seq
