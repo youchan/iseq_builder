@@ -23,12 +23,12 @@ module ISeqBuilder
     end
 
     def new_sequence(type)
-      @sequences << (seq = Sequence.new(type))
+      @sequences << (seq = Sequence.new(self, type))
       seq
     end
 
     def add_sequence(type, &block)
-      block.call(seq = Sequence.new(type))
+      block.call(seq = Sequence.new(self, type))
       @sequences << seq
       seq
     end
